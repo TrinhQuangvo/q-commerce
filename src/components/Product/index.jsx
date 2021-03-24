@@ -12,7 +12,7 @@ import useStyles from "./style.js";
 
 import { AddShoppingCart } from "@material-ui/icons";
 
-const Product = ({ product }) => {
+const Product = ({ product, onAddToCard }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -26,14 +26,16 @@ const Product = ({ product }) => {
           <Typography variant="h5" gutterBottom>
             {product.name}
           </Typography>
-          <Typography variant="h5">Price : {product.price.formatted_with_symbol}</Typography>
+          <Typography variant="h5">
+            Price : {product.price.formatted_with_symbol}
+          </Typography>
         </div>
         <Typography varient="h2" color="textSecondary">
           {product.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton aria-label="Add To Cart">
+        <IconButton aria-label="Add To Cart" onClick={()=>onAddToCard(product.id , 1)}>
           <AddShoppingCart />
         </IconButton>
       </CardActions>

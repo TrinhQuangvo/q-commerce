@@ -4,22 +4,33 @@ import * as Components from "./components";
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
 
   const fetchProducts = async () => {
-    const { data } = await commerce.products.list(); 
+    const { data } = await commerce.products.list();
     setProducts(data);
+  };
+
+  const fetchCart = async () => {
+    const cart = await commerce.cart.retrieve();
+
+    setCart(cart);
+  };
+
+  const handleAddToCart = async (productId, quantity) => {
+    const item = await commerce.cart.add(productId, quantity);
+    setCart(item);
   };
 
   useEffect(() => {
     fetchProducts();
+    fetchCart();
   }, []);
-
-  console.log("products" ,products);
 
   return (
     <div>
-      <Components.Navbar />
-      <Components.Products products={products} />
+      <Components.Navbar totalItems={cart.total_items} />
+      <Components.Products products={products} onAddToCard={handleAddToCart} />
     </div>
   );
 };
