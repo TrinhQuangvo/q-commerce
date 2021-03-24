@@ -31,6 +31,7 @@ const App = () => {
     <div>
       <Components.Navbar totalItems={cart.total_items} />
       <Components.Products products={products} onAddToCard={handleAddToCart} />
+      <Components.Cart cart={cart} />
     </div>
   );
 };
