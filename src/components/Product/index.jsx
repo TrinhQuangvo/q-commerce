@@ -12,17 +12,21 @@ import useStyles from "./style.js";
 
 import { AddShoppingCart } from "@material-ui/icons";
 
-function Product({ product }) {
+const Product = ({ product }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardMedia className={classes.media} image={product.image} title={product.name} />
+      <CardMedia
+        className={classes.media}
+        image={product.media.source}
+        title={product.name}
+      />
       <CardContent>
         <div className={classes.cardContent}>
           <Typography variant="h5" gutterBottom>
             {product.name}
           </Typography>
-          <Typography variant="p">Price : {product.price}</Typography>
+          <Typography variant="h5">Price : {product.price.formatted_with_symbol}</Typography>
         </div>
         <Typography varient="h2" color="textSecondary">
           {product.description}
@@ -35,7 +39,7 @@ function Product({ product }) {
       </CardActions>
     </Card>
   );
-}
+};
 
 Product.propTypes = {};
 
