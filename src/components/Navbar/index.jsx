@@ -21,7 +21,7 @@ export default function Navbar({ totalItems }) {
         <Toolbar>
           <Typography
             component={Link}
-            to="/Cart"
+            to="/"
             variant="h6"
             className={classes.title}
             color="inherit"
@@ -33,12 +33,14 @@ export default function Navbar({ totalItems }) {
         <div className={classes.grow} />
         {/* hidden the Cart icon in Cart Page */}
         {location.pathname === "/" && (
-          <div className={classes.button}>
-            <IconButton aria-label="Show Cart Items" color="inherit">
-              <Badge badgeContent={totalItems} color="secondary">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
+          <div>
+            <Link exact to="/cart" className={classes.button}>
+              <IconButton aria-label="Show Cart Items" color="inherit">
+                <Badge badgeContent={totalItems} color="secondary" to="/cart">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </Link>
           </div>
         )}
       </AppBar>

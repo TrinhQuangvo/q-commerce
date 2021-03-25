@@ -4,17 +4,21 @@ import useStyles from "./styles";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 
-const Cart = ({ cart }) => {
+const Cart = ({
+  cart,
+  handleUpdateCartQty,
+  handleRemoveFromCart,
+  handleEmptyCart,
+}) => {
   const classes = useStyles();
 
-  const handleEmptyCart = () => {}; // onEmptyCart();
-
+  
   const renderEmptyCart = () => (
     <Typography variant="subtitle1">
       You have no items in your shopping cart,
       <Link className={classes.link} to="/">
         start adding some
-      </Link> 
+      </Link>
     </Typography>
   );
 
@@ -27,8 +31,8 @@ const Cart = ({ cart }) => {
           <Grid item xs={12} sm={4} key={lineItem.id}>
             <CartItem
               item={lineItem}
-              //   onUpdateCartQty={onUpdateCartQty}
-              //   onRemoveFromCart={onRemoveFromCart}
+              onUpdateCartQty={handleUpdateCartQty}
+              onRemoveFromCart={handleRemoveFromCart}
             />
           </Grid>
         ))}
@@ -50,7 +54,7 @@ const Cart = ({ cart }) => {
           </Button>
           <Button
             className={classes.checkoutButton}
-            //component={Link}
+            component={Link}
             to="/checkout"
             size="large"
             type="button"
