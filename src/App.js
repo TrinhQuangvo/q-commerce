@@ -60,6 +60,9 @@ const App = () => {
             onEmptyCart={handleEmptyCart}
           />
         </Route>
+        <Route exact path="/checkout">
+          <Components.Checkout />
+        </Route>
       </Switch>
       <div>
         <Components.Navbar totalItems={cart.total_items} />
