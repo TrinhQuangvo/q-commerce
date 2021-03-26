@@ -15,23 +15,22 @@ const App = () => {
 
   const fetchCart = async () => {
     const cart = await commerce.cart.retrieve();
-
     setCart(cart);
   };
 
   const handleAddToCart = async (productId, quantity) => {
-    const { cart } = await commerce.cart.add(productId, quantity);
+    const { cart } = await commerce.cart.add(productId, { quantity });
     setCart(cart);
   };
 
   const handleUpdateCartQty = async (productId, quantity) => {
-    const { cart } = await commerce.cart.update(productId, quantity);
-    setCart(cart);
+    const response = await commerce.cart.update(productId, { quantity });
+    setCart(response.cart);
   };
 
   const handleRemoveFromCart = async (productId) => {
-    const { cart } = await commerce.cart.remove(productId);
-    setCart(cart);
+    const response = await commerce.cart.remove(productId);
+    setCart(response.cart);
   };
 
   const handleEmptyCart = async () => {
@@ -50,15 +49,15 @@ const App = () => {
         <Route exact path="/">
           <Components.Products
             products={products}
-            onAddToCard={handleAddToCart}
+            onAddToCart={handleAddToCart}
           />
         </Route>
         <Route exact path="/cart">
           <Components.Cart
             cart={cart}
-            handleUpdateCartQty={handleUpdateCartQty}
-            handleRemoveFromCart={handleRemoveFromCart}
-            handleEmptyCart={handleEmptyCart}
+            onUpdateCartQty={handleUpdateCartQty}
+            onRemoveFromCart={handleRemoveFromCart}
+            onEmptyCart={handleEmptyCart}
           />
         </Route>
       </Switch>
