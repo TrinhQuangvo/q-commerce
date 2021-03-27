@@ -45,6 +45,9 @@ const App = () => {
 
   return (
     <Router>
+      <div>
+        <Components.Navbar totalItems={cart.total_items} />
+      </div>
       <Switch>
         <Route exact path="/">
           <Components.Products
@@ -61,12 +64,9 @@ const App = () => {
           />
         </Route>
         <Route exact path="/checkout">
-          <Components.Checkout />
+          <Components.Checkout cart={cart} />
         </Route>
       </Switch>
-      <div>
-        <Components.Navbar totalItems={cart.total_items} />
-      </div>
     </Router>
   );
 };

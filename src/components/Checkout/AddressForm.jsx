@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   InputLabel,
   Select,
@@ -10,8 +10,9 @@ import {
 
 import { useForm, FormProvider } from "react-hook-form";
 import FormInput from "./CustomTextField";
+import { commerce } from "../../libs/commerce";
 
-const AddressForm = () => {
+const AddressForm = ({ checkoutToken }) => {
   const [shippingCountry, setShippingCountry] = useState([]);
   const [shippingCountries, setShippingCountries] = useState("");
   const [shippingSubDivision, setShippingSubDivision] = useState([]);
@@ -20,6 +21,19 @@ const AddressForm = () => {
   const [shippingOption, setShippingOption] = useState("");
 
   const methods = useForm();
+
+  const fetchShippingCountries = async (checkoutTokenId) => {
+    const { countries } = await commerce.services.localeListShippingCountries(
+      checkoutTokenId
+    );
+
+    setShippingCountries(countries);
+    setShippingCountry(Object.keys(countries)[0]);
+  };
+
+  useEffect(() => {
+    fetchShippingCountries(checkoutToken.id);
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -40,10 +54,18 @@ const AddressForm = () => {
             <FormInput required name="ZIP" label="ZIP / Postal Code" />
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Country</InputLabel>
-              <Select value="asd" fullWidth onChange="">
-                <MenuItem key="" value="">
-                  Select Me
-                </MenuItem>
+              <Select
+                value={shippingCountry}
+                fullWidth
+                onChange={(e) => setShippingCountry(e.target.value)}
+              >
+                {Object.entries(shippingCountries)
+                  .map(([code, name]) => ({ id: code, label: name }))
+                  .map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
               </Select>
             </Grid>
           </Grid>

@@ -5,10 +5,11 @@ const drawerWidth = 0;
 export default makeStyles((theme) => ({
   appBar: {
     boxShadow: "none",
-    borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
-    
+    borderBottom: "1px solid rgba(0, 0, 0, 0.12)", 
+    position: "relative",
+    marginBottom: "2rem",
     display: "flex",
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -23,7 +24,7 @@ export default makeStyles((theme) => ({
   },
   image: {
     marginRight: "10px",
-    width:"20px"
+    width: "20px",
   },
   menuButton: {
     marginRight: theme.spacing(2),
